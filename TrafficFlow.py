@@ -38,7 +38,7 @@ tau = (tau_max-tau_min)*np.random.rand(N,1) + tau_min
 
 #'tau' should be in multiples of 'h'
 tau = (np.rint(tau/h))*h
-tau_h = tau/h
+tau_h = np.rint(tau/h)
 
 #Initializing the problem
 s = np.zeros([N,H], dtype=float)
@@ -51,14 +51,14 @@ v[:,0] = v_f[:,0]
 for t in range (1,H):
     for n in range (0,N):
         if n==0:
-            s[n,t] = s[n,t-1] + h*(v[N,t-1]-v[n,t-1]) 
+            s[n,t] = s[n,t-1] + h*(v[N-1,t-1]-v[n,t-1]) 
         else:
             s[n,t] = s[n,t-1] + h*(v[n-1,t-1]-v[n,t-1])
         s[n,t] = max(s[n,t],d[n,0])
 
         #Speed Updates
-        if t < tau_h[n,0]:
+        if t <= tau_h[n,0]:
             v[n,t] = v[n,t-1]
         else:
-            v[n,t] = speed(s[n,t-tau_h[n,0]],v_f[n,0],tau[n,0],d[n,0])
+            v[n,t] = speed(s[n,int(t-tau_h[n,0])],v_f[n,0],tau[n,0],d[n,0])
 
