@@ -10,6 +10,7 @@
 # s = distance between the car and the one immediately in front
 
 import numpy as np
+import matplotlib.pyplot as plt
 import random
 import math
 
@@ -27,7 +28,7 @@ d_max = 8
 #set the parameter values
 N = 5
 L = 1000
-T = 3600 #increase later
+T = 3600 
 h = 0.1
 H = int(T/h)
 
@@ -62,3 +63,8 @@ for t in range (1,H):
         else:
             v[n,t] = speed(s[n,int(t-tau_h[n,0])],v_f[n,0],tau[n,0],d[n,0])
 
+#Plotting the Results
+x_t = np.arange(start=0, stop=T, step=0.1)
+for i in range(0,N):
+    plt.plot(x_t, v[i,:])
+plt.show()
