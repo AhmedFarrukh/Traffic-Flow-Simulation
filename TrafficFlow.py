@@ -67,4 +67,6 @@ for t in range (1,H):
 x_t = np.arange(start=0, stop=T, step=0.1)
 for i in range(0,N):
     plt.plot(x_t, v[i,:])
+plt.xlabel("Time (s)")
+plt.ylabel("Speed (m/s)")
 plt.show()
