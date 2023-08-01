@@ -8,6 +8,7 @@
 # T = horizon time
 # d = the minimum safety distance between two car bumpers
 # s = distance between the car and the one immediately in front
+# x = total distance travelled by a car
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -47,6 +48,7 @@ v = np.zeros([N,H], dtype=float)
 
 s[:,0] = L/N
 v[:,0] = v_f[:,0]
+x = np.copy(s)
 
 #Simulate Speeding Dynamics
 for t in range (1,H):
@@ -62,11 +64,18 @@ for t in range (1,H):
             v[n,t] = v[n,t-1]
         else:
             v[n,t] = speed(s[n,int(t-tau_h[n,0])],v_f[n,0],tau[n,0],d[n,0])
+        x[n,t] = x[n,t-1] + v[n,t-1]*h
 
 #Plotting the Results
-x_t = np.arange(start=0, stop=T, step=0.1)
+time = np.arange(start=0, stop=T, step=0.1)
 for i in range(0,N):
-    plt.plot(x_t, v[i,:])
+    plt.plot(time, v[i,:])
 plt.xlabel("Time (s)")
 plt.ylabel("Speed (m/s)")
+plt.show()
+
+for i in range(0,N):
+    plt.plot(time, x[i,:])
+plt.xlabel("Time (s)")
+plt.ylabel("Distance (m)")
 plt.show()
