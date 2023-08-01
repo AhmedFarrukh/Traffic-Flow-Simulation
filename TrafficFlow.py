@@ -20,14 +20,14 @@ def speed(s, v_f, tau, d):
 #defining the ranges of the speed variables
 v_f_max = 80/3.6
 v_f_min = 100/3.6
-tau_min = 1
-tau_max = 2
+tau_min = 0.5
+tau_max = 0.8
 d_min = 5
 d_max = 8
 
 #set the parameter values
 N = 5
-L = 1000
+L = 100
 T = 3600 
 h = 0.1
 H = int(T/h)
